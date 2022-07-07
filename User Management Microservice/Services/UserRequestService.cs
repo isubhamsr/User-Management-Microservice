@@ -40,7 +40,7 @@ namespace User_Management_Microservice.Services
             List<AppUser> services = new List<AppUser>();
             try
             {
-                services = _context.AppUsers.Where(p => p.Id == userId).ToList();
+                services = _context.AppUsers.Where(p => p.Id == userId).Select(p => new AppUser { Id = p.Id, Name = p.Name, Email = p.Email, Mobile = p.Mobile, Registrationdate = p.Registrationdate }).ToList();
                 return services;
             }
             catch (Exception ex)
@@ -56,7 +56,7 @@ namespace User_Management_Microservice.Services
             try
             {
                 
-                services = _context.AppUsers.ToList();
+                services = _context.AppUsers.Select(p => new AppUser { Id = p.Id, Name = p.Name, Email = p.Email, Mobile = p.Mobile, Registrationdate = p.Registrationdate }).ToList();
 
                 return services;
             }
