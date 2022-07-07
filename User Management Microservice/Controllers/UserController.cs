@@ -4,6 +4,7 @@ using User_Management_Microservice.Model;
 using System.Collections.Generic;
 using User_Management_Microservice.Services;
 using Microsoft.AspNetCore.Authorization;
+using System.IdentityModel.Tokens.Jwt;
 
 
 
@@ -115,7 +116,7 @@ namespace User_Management_Microservice.Controllers
             try
             {
                 var _temp = _service.SaveUser(value);
-                if (_temp)
+                if (_temp == "2")
                 {
                     response.Add("error", false);
                     response.Add("message", "User Added");
@@ -124,10 +125,19 @@ namespace User_Management_Microservice.Controllers
 
                     return jsonResponse;
                 }
+                else if (_temp == "3")
+                {
+                    response.Add("error", true);
+                    response.Add("message", "User not Added");
+
+                    string jsonResponse = JsonConvert.SerializeObject(response);
+
+                    return jsonResponse;
+                }
                 else
                 {
                     response.Add("error", true);
-                    response.Add("message", "Some Thing Went Wrong");
+                    response.Add("message", "This email already exists");
 
                     string jsonResponse = JsonConvert.SerializeObject(response);
 
@@ -210,6 +220,54 @@ namespace User_Management_Microservice.Controllers
                 {
                     response.Add("error", true);
                     response.Add("message", "User Deleted, Something Wrong");
+
+                    string jsonResponse = JsonConvert.SerializeObject(response);
+
+                    return jsonResponse;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                response.Add("error", true);
+                response.Add("message", ex.Message);
+
+                string jsonResponse = JsonConvert.SerializeObject(response);
+
+                return jsonResponse;
+            }
+        }
+
+        [HttpPut("ChangePassword")]
+        public string ChangePassword([FromBody] AppUser value)
+        {
+            try
+            {
+                string tokenFromHeader = Request.Headers["Authorization"];
+                var token = tokenFromHeader.Replace("Bearer ", string.Empty);
+
+                var handler = new JwtSecurityTokenHandler();
+                var decodedToken = handler.ReadJwtToken(token);
+
+
+                string id = decodedToken.Claims.First(claim => claim.Type == "Id").Value;
+                int userId = int.Parse(id);
+
+                var data = _service.ChangePassword(userId, value);
+
+                if (data)
+                {
+                    response.Add("error", false);
+                    response.Add("message", "Password changed successfully");
+
+                    string jsonResponse = JsonConvert.SerializeObject(response);
+
+                    return jsonResponse;
+                }
+                else
+                {
+                    response.Add("error", true);
+                    response.Add("message", "Password not changed");
 
                     string jsonResponse = JsonConvert.SerializeObject(response);
 

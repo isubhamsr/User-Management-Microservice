@@ -65,32 +65,33 @@ namespace User_Management_Microservice.Services
                 throw new Exception();
             }
         }
-        public bool SaveUser(AppUser serviceReqModel)
+        public string SaveUser(AppUser serviceReqModel)
         {
             try
             {
+                var user = _context.AppUsers.Where(p => p.Email == serviceReqModel.Email).FirstOrDefault();
+
+                if(user != null)
+                {
+                    return "1";
+                }
                 if (serviceReqModel != null)
                 {
                     _context.AppUsers.Add(serviceReqModel);
                     _context.SaveChanges();
-                    return true;
+                    return "2";
                 }
                 else
                 {
-                    return false;
+                    return "3";
                 }
             }
             catch (Exception)
             {
-                return false;
+                return "4";
             }
         }
         
-  
-     
-
-
-
         public bool UpdateUser(AppUser serviceReqModel)
         {
             try
@@ -119,6 +120,32 @@ namespace User_Management_Microservice.Services
                 return false;
             }
 
+        }
+
+        public bool ChangePassword(int id, AppUser serviceReqModel)
+        {
+            try
+            {
+                var service = _context.AppUsers.Where(p => p.Id == id).FirstOrDefault();
+                if (service != null)
+                {
+                    service.Password = serviceReqModel.Password;
+
+                    _context.Entry(service).State = EntityState.Modified;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
     }
 }

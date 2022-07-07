@@ -6,9 +6,10 @@ namespace User_Management_Microservice.Services
     {
         List<AppUser> GetUserList();
         List<AppUser> GetServiceRequestDetailsByUserId(int userId);
-        bool SaveUser(AppUser serviceReqModel);
+        string SaveUser(AppUser serviceReqModel);
         bool DeleteUser(int id);
         bool UpdateUser(AppUser serviceReqModel);
+        bool ChangePassword(int id, AppUser serviceReqModel);
     }
 }
 
