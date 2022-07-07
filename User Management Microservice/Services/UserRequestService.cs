@@ -55,6 +55,7 @@ namespace User_Management_Microservice.Services
             List<AppUser> services = new List<AppUser>();
             try
             {
+                
                 services = _context.AppUsers.ToList();
 
                 return services;

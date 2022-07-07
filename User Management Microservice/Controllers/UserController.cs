@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using User_Management_Microservice.Model;
 using System.Collections.Generic;
 using User_Management_Microservice.Services;
+using Microsoft.AspNetCore.Authorization;
 
 
 
@@ -10,6 +11,7 @@ using User_Management_Microservice.Services;
 
 namespace User_Management_Microservice.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -105,11 +107,8 @@ namespace User_Management_Microservice.Controllers
             }
         }
 
-        
-               
-
-
-        
+                      
+        [AllowAnonymous]
         [HttpPost]
         public string Post([FromBody] AppUser value)
         {
