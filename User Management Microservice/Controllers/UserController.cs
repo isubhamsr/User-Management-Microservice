@@ -3,7 +3,8 @@ using Newtonsoft.Json;
 using User_Management_Microservice.Model;
 using System.Collections.Generic;
 using User_Management_Microservice.Services;
-
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -22,7 +23,7 @@ namespace User_Management_Microservice.Controllers
         {
             _service = service;
 
-            users.Add(new AppUser { Id = 1, Name = "Ritu", Password = "sqdk", Email = "ritu@123gmial.com", Mobile = 6789569, Registrationdate = DateTime.Now });
+            users.Add(new AppUser { Id = 1, Name = "Ritu",Password = "sqdk", Email = "ritu@123gmial.com", Mobile = 6789569, Registrationdate = DateTime.Now });
             users.Add(new AppUser { Id = 2, Name = "Ram", Password = "ngkh", Email = "ra345@gmail.com", Mobile = 5678967, Registrationdate = DateTime.Now });
             users.Add(new AppUser { Id = 3, Name = "Raju", Password = "jkhn", Email = "rituhk456@gmail.com", Mobile = 78960767, Registrationdate = DateTime.Now });
         }
