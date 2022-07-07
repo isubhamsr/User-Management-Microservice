@@ -8,7 +8,7 @@ namespace User_Management_Microservice.Services
         List<AppUser> GetServiceRequestDetailsByUserId(int userId);
         bool SaveUser(AppUser serviceReqModel);
         bool DeleteUser(int id);
-        bool UpdateUser(int id, AppUser serviceReqModel);
+        bool UpdateUser(AppUser serviceReqModel);
     }
 }
 

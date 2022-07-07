@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 using User_Management_Microservice.Model;
 using System.Collections.Generic;
 using User_Management_Microservice.Services;
+
+
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace User_Management_Microservice.Controllers
@@ -145,14 +148,15 @@ namespace User_Management_Microservice.Controllers
         }
 
 
+
         // POST api/<UserController>
         // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public string Put(int id, [FromBody] AppUser value)
+        [HttpPut]
+        public string Put([FromBody] AppUser value)
         {
             try
             {
-                var data = _service.UpdateUser(id, value);
+                var data = _service.UpdateUser(value);
 
                 if (data)
                 {

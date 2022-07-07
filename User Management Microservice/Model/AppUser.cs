@@ -11,7 +11,7 @@ namespace User_Management_Microservice.Model
         public string? Password { get;set; }
         public string? Email { get; set; }
         public long Mobile { get; set; }
-        public DateTime  Registrationdate { get; set; }
+        public DateTime  Registrationdate { get; set; } = DateTime.Now;
 
 
     }

@@ -84,11 +84,17 @@ namespace User_Management_Microservice.Services
                 return false;
             }
         }
-        public bool UpdateUser(int id, AppUser serviceReqModel)
+        
+  
+     
+
+
+
+        public bool UpdateUser(AppUser serviceReqModel)
         {
             try
             {
-                var service = _context.AppUsers.Where(p => p.Id == id).FirstOrDefault();
+                var service = _context.AppUsers.Where(p => p.Id == serviceReqModel.Id).FirstOrDefault();
                 if (service != null)
                 {
                     service.Email = serviceReqModel.Email;
