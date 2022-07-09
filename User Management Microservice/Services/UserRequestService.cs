@@ -43,7 +43,7 @@ namespace User_Management_Microservice.Services
                 services = _context.AppUsers.Where(p => p.Id == userId).Select(p => new AppUser { Id = p.Id, Name = p.Name, Email = p.Email, Mobile = p.Mobile, Registrationdate = p.Registrationdate }).ToList();
                 return services;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 throw new Exception();
